@@ -9,26 +9,32 @@ import productRouter from './routes/productRoute.js'
 import cartRouter from './routes/cartRoute.js'
 import orderRouter from './routes/orderRoute.js'
 
-// App Config
 const app = express()
-
 const port = process.env.PORT || 4000
 
 connectDB()
 
-// middlewares
-app.use(express.json())
-app.use(cors())
+// Middlewares
+app.use(cors({
+    origin: [
+        'https://full-stack-e-commerce-website-ruddy.vercel.app',
+        'https://full-stack-e-commerce-website-8gic-2q0yx325-manisha-rawat.vercel.app'
+    ],
+    credentials: true
+}))
 
-// api endpoints
+app.use(express.json())
+
+// API endpoints
 app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
-app.use('/api/cart',cartRouter)
-app.use('/api/order',orderRouter)
-
+app.use('/api/cart', cartRouter)
+app.use('/api/order', orderRouter)
 
 app.get('/', (req, res) => {
-    res.send("API Working")
+    res.send('API Working')
 })
 
-app.listen(port, () => console.log('Server started on PORT : ' + port))
+app.listen(port, () => {
+    console.log('Server started on PORT : ' + port)
+})
