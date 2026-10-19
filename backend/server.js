@@ -12,16 +12,15 @@ import orderRouter from './routes/orderRoute.js'
 const app = express()
 const port = process.env.PORT || 4000
 
-app.use(express.json())
-
 app.use(cors({
     origin: [
         'https://full-stack-e-commerce-website-ruddy.vercel.app',
         'https://full-stack-e-commerce-website-ogic-kgt1p0je3-manisha-rawat.vercel.app'
     ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true
 }))
+
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send('API Working')
