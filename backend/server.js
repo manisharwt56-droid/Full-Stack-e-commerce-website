@@ -23,7 +23,7 @@ app.use(cors({
         if (
             !origin ||
             allowedOrigins.includes(origin) ||
-            /^https:\/\/full-stack-e-commerce-website-[a-z0-9]+-manisha-rawat\.vercel\.app$/.test(origin)
+            /^https:\/\/full-stack-e-commerce-website-[a-z0-9-]+-manisha-rawat\.vercel\.app$/.test(origin)
         ) {
             callback(null, true)
         } else {
