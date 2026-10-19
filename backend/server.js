@@ -1,3 +1,4 @@
+
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
@@ -12,12 +13,26 @@ import orderRouter from './routes/orderRoute.js'
 const app = express()
 const port = process.env.PORT || 4000
 
+const allowedOrigins = [
+    'https://full-stack-e-commerce-website-ruddy.vercel.app',
+    'https://full-stack-e-commerce-website-ogic-kgt1p0je3-manisha-rawat.vercel.app'
+]
+
 app.use(cors({
-    origin: [
-        'https://full-stack-e-commerce-website-ruddy.vercel.app',
-        'https://full-stack-e-commerce-website-ogic-kgt1p0je3-manisha-rawat.vercel.app'
-    ],
-    credentials: true
+    origin: (origin, callback) => {
+        if (
+            !origin ||
+            allowedOrigins.includes(origin) ||
+            /^https:\/\/full-stack-e-commerce-website-[a-z0-9]+-manisha-rawat\.vercel\.app$/.test(origin)
+        ) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'token']
 }))
 
 app.use(express.json())
